@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,6 +21,17 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function () {
     Route::get('/dashboard', fn() => view('customer.dashboard'))->name('customer.dashboard');
+
+    // This routes to the account
+    Route::resource('accounts', AccountController::class)->only(['index', 'create', 'store']);
+
+    // This routes to the deposit
+    Route::get('/deposit', [TransactionController::class, 'depositForm'])->name('deposit.form');
+    Route::post('/deposit', [TransactionController::class, 'deposit'])->name('deposit');
+
+    // This routes to the withdrawal
+    Route::get('/withdraw', [TransactionController::class, 'withdrawForm'])->name('withdraw.form');
+    Route::post('/withdraw', [TransactionController::class, 'withdraw'])->name('withdraw');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
