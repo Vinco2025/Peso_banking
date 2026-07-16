@@ -32,6 +32,10 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // This routes to the withdrawal
     Route::get('/withdraw', [TransactionController::class, 'withdrawForm'])->name('withdraw.form');
     Route::post('/withdraw', [TransactionController::class, 'withdraw'])->name('withdraw');
+
+    // This routes to the transfer
+    Route::get('/transfer', [TransactionController::class, 'transferForm'])->name('transfer.form');
+    Route::post('/transfer', [TransactionController::class, 'transfer'])->name('transfer.submit');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
