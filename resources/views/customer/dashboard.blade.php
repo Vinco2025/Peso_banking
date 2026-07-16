@@ -38,6 +38,10 @@
                 class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
                     💸 Withdraw
                 </a>
+                <a href="{{ route('transfer.form') }}"
+                    class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                        Transfer
+                </a>
             </div>
 
         </div>
