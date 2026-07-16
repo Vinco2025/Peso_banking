@@ -13,6 +13,10 @@ class Account extends Model
         'type',
     ];
 
+    protected $casts = [
+        'balance' => 'decimal:2'
+    ];
+
     //Shows if the account belongs to the user
     public function user()
     {
