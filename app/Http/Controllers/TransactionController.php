@@ -133,4 +133,18 @@ class TransactionController extends Controller
 
         return redirect()->route('accounts.index')->with('success', 'Transfer successfully!');
     }
+
+    public function history()
+    {
+        $accounts = auth()->user()->accounts->pluck('id');
+
+        $transactions = Transaction::where(function ($query) use ($accounts) {
+                $query->whereIn('from_account_id', $accounts)
+                    ->orwhereIn('to_account_id', $accounts);
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('customer.transactions.history', compact('transactions'));
+    }
 }
