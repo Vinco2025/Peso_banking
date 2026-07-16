@@ -36,6 +36,9 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->group(function
     // This routes to the transfer
     Route::get('/transfer', [TransactionController::class, 'transferForm'])->name('transfer.form');
     Route::post('/transfer', [TransactionController::class, 'transfer'])->name('transfer.submit');
+
+    // This routes to the history
+    Route::get('/history', [TransactionController::class, 'history'])->name('transaction.history');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
