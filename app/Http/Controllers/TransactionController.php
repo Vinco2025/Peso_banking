@@ -86,4 +86,51 @@ class TransactionController extends Controller
         return redirect()->route('accounts.index')
                         ->with('success', '₱' . number_format($request->amount, 2) . ' withdrawn successfully!');
     }
+
+    public function transferForm()
+    {
+        $accounts = auth()->user()->accounts;
+        return view('customer.transactions.transfer', compact('accounts'));
+    }
+
+    public function transfer(Request $request)
+    {
+        $request->validate([
+            'from_account_id' => 'required|exists:accounts,id',
+            'to_account_number' => 'required|string',
+            'amount' => 'required|numeric|min:0.01',
+        ]);
+
+        $fromAccount = Account::where('id', $request->from_account_id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $toAccount = Account::where('account_number', $request->to_account_number)->first();
+
+        if (!$toAccount) {
+            return back()->withErrors(['to_account_number' => 'Destination account not found.']);
+        }
+
+        if ($toAccount->id === $fromAccount->id) {
+            return back()->withErrors(['to_account_number' => 'Cannot transfer to the same account.']);
+        }
+
+        if ((float) $fromAccount->balance < (float) $request->amount) {
+            return back()->withErrors(['amount' => 'Insufficient balance.']);
+        }
+
+        DB::transaction(function () use ($fromAccount, $toAccount, $request) {
+            $fromAccount->decrement('balance', $request->amount);
+            $toAccount->increment('balance', $request->amount);
+
+            Transaction::create([
+                'from_account_id' => $fromAccount->id,
+                'to_account_id' => $toAccount->id,
+                'type' => 'transfer',
+                'amount' => $request->amount,
+            ]);
+        });
+
+        return redirect()->route('accounts.index')->with('success', 'Transfer successfully!');
+    }
 }
