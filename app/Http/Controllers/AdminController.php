@@ -35,8 +35,22 @@ class AdminController extends Controller
         $transactions = Transaction::with(['fromAccount.user', 'toAccount.user'])
             ->when($request->type, fn($q) => $q->where('type', $request->type))
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('admin.transactions', compact('transactions'));
+    }
+
+    public function suspendUser(User $user)
+    {
+        $user->status = 'suspended';
+        $user->save();
+        return back()->with('success', $user->name . ' has been suspended.');
+    }
+
+    public function activateUser(User $user)
+    {
+        $user->status = 'active';
+        $user->save();
+        return back()->with('success', $user->name . ' has been activated.');
     }
 }
