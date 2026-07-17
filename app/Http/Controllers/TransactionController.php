@@ -134,7 +134,7 @@ class TransactionController extends Controller
         return redirect()->route('accounts.index')->with('success', 'Transfer successfully!');
     }
 
-    public function history()
+    public function history(Request $request)
     {
         $accounts = auth()->user()->accounts->pluck('id');
 
@@ -142,6 +142,7 @@ class TransactionController extends Controller
                 $query->whereIn('from_account_id', $accounts)
                     ->orwhereIn('to_account_id', $accounts);
         })
+        ->when($request->type, fn($q) => $q->where('type', $request->type))
         ->orderBy('created_at', 'desc')
         ->get();
 
