@@ -144,7 +144,7 @@ class TransactionController extends Controller
         })
         ->when($request->type, fn($q) => $q->where('type', $request->type))
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(10);
 
         return view('customer.transactions.history', compact('transactions'));
     }
