@@ -5,6 +5,21 @@
         </h2>
     </x-slot>
 
+    <form method="GET" action="{{ route('transaction.history') }}" class="mb-6 flex gap-3 items-center">
+        <select name="type" class="border-gray-300 rounded-md shadow-sm text-sm">
+            <option value="">All Transactions</option>
+            <option value="deposit" {{ request('type') === 'deposit' ? 'selected' : '' }}>Deposit</option>
+            <option value="withdrawal" {{ request('type') === 'withdrawal' ? 'selected' : '' }}>Withdrawal</option>
+            <option value="transfer" {{ request('type') === 'transfer' ? 'selected' : '' }}>Transfer</option>
+        </select>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+            Filter
+        </button>
+        @if(request('type'))
+            <a href="{{ route('transaction.history') }}" class="text-sm text-gray-500 hover:underline">Clear</a>
+        @endif
+    </form>
+
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
