@@ -32,15 +32,15 @@
             <div class="flex gap-4 mb-6">
                 <a href="{{ route('deposit.form') }}"
                 class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-                    💰 Deposit
+                    Deposit
                 </a>
                 <a href="{{ route('withdraw.form') }}"
                 class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                    💸 Withdraw
+                    Withdraw
                 </a>
                 <a href="{{ route('transfer.form') }}"
                     class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
-                        Transfer
+                    Transfer
                 </a>
                 <a href="{{ route('transaction.history') }}"
                 class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
