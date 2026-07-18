@@ -57,6 +57,9 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <div class="mt-4">
+                        {{ $transactions->appends(request()->query())->links() }}
+                    </div>
                 </table>
 
             </div>
