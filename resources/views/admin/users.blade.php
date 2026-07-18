@@ -6,6 +6,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm rounded-lg p-6">
+
+                @if (session('success'))
+                    <div class="mb-4 text-green-600">{{ session('success') }}</div>
+                @endif
+
                 <table class="w-full text-sm text-left">
                     <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
                         <tr>
@@ -13,6 +18,8 @@
                             <th class="px-4 py-3">Email</th>
                             <th class="px-4 py-3">Accounts</th>
                             <th class="px-4 py-3">Total Balance</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3">Action</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -23,6 +30,35 @@
                                 <td class="px-4 py-3">{{ $user->accounts->count() }}</td>
                                 <td class="px-4 py-3 font-semibold">
                                     ₱{{ number_format($user->accounts->sum('balance'), 2) }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded text-xs font-semibold
+                                        {{ $user->status === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                        {{ ucfirst($user->status) }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    @if ($user->status === 'active')
+                                        <button type="button"
+                                            onclick="document.getElementById('suspend-{{ $user->id }}').submit()"
+                                            class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">
+                                            Suspend
+                                        </button>
+                                        <form id="suspend-{{ $user->id }}" method="POST" 
+                                            action="{{ route('admin.users.suspend', $user) }}" class="hidden">
+                                            @csrf
+                                        </form>
+                                    @else
+                                        <button type="button"
+                                            onclick="document.getElementById('activate-{{ $user->id }}').submit()"
+                                            class="bg-green-500 text-white px-3 py-1 rounded text-xs hover:bg-green-600">
+                                            Activate
+                                        </button>
+                                        <form id="activate-{{ $user->id }}" method="POST"
+                                            action="{{ route('admin.users.activate', $user) }}" class="hidden">
+                                            @csrf
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
