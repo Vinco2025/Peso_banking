@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
@@ -159,5 +160,21 @@ class TransactionController extends Controller
         ->paginate(10);
 
         return view('customer.transactions.history', compact('transactions'));
+    }
+
+    public function exportPdf()
+    {
+        $user =auth()->user();
+        $accountIds = $user->accounts()->pluck('id');
+
+        $transactions = \App\Models\Transaction::whereIn('from_account_id', $accountIds)
+            ->orWhereIn('to_account_id', $accountIds)
+            ->with(['FromAccount', 'toAccount'])
+            ->latest()
+            ->get();
+
+        $pdf = Pdf::loadview('transactions.pdf', compact('user', 'transactions'));
+
+        return $pdf->download('transaction-history.pdf');
     }
 }
