@@ -5,6 +5,11 @@
         </h2>
     </x-slot>
 
+    <a href="{{ route('transactions.export-pdf') }}"
+        class="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600">
+        Export PDF
+    </a>
+
     <form method="GET" action="{{ route('transaction.history') }}" class="mb-6 flex gap-3 items-center">
         <select name="type" class="border-gray-300 rounded-md shadow-sm text-sm">
             <option value="">All Transactions</option>
