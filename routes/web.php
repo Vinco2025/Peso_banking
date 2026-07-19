@@ -40,6 +40,9 @@ Route::middleware(['auth', 'role:customer', 'check.status'])->prefix('customer')
 
     // This routes to the history
     Route::get('/history', [TransactionController::class, 'history'])->name('transaction.history');
+
+    // This routes to the exporting of transactions
+    Route::get('/transactions/export-pdf', [TransactionController::class, 'exportPdf'])->name('transactions.export-pdf');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
@@ -50,6 +53,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/users/{user}/activate', [AdminController::class, 'activateUser'])->name('admin.users.activate');
     Route::post('/accounts/{account}/deactivate', [AdminController::class, 'deactivateAccount'])->name('admin.accounts.deactivate');
     Route::post('/accounts/{account}/activate', [AdminController::class, 'activateAccount'])->name('admin.accounts.activate');
+    Route::get('/admin/users/{user}/transactions', [AdminController::class, 'userTransactions'])->name('admin.user.transactions');
 });
 
 require __DIR__.'/auth.php';
