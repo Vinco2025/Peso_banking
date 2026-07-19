@@ -67,4 +67,18 @@ class AdminController extends Controller
         $account->save();
         return back()->with('success', 'Account ' . $account->account_number . ' has been activated.');
     }
+
+    public function userTransactions(User $user)
+    {
+
+        $accountIds = $user->accounts()->pluck('id');
+
+        $transactions = \App\Models\Transaction::wherein('from_account_id', $accountIds)
+            ->orWhereIn('to_account_id', $accountIds)
+            ->with(['fromAccount.user', 'toAccount.user'])
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.user-transactions', compact('user', 'transactions'));
+    }
 }
