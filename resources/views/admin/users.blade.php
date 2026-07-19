@@ -27,7 +27,38 @@
                             <tr>
                                 <td class="px-4 py-3">{{ $user->name }}</td>
                                 <td class="px-4 py-3">{{ $user->email }}</td>
-                                <td class="px-4 py-3">{{ $user->accounts->count() }}</td>
+                                <td class="px-4 py-3">
+                                    @foreach ($user->accounts as $account)
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <span class="text-xs">{{ $account->account_number }}</span>
+                                            <span class="px-2 py-0.5 rounded text-xs font-semibold
+                                                {{ $account->status === 'active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                                {{ ucfirst($account->status) }}
+                                            </span>
+                                            @if ($account->status === 'active')
+                                                <button type="button"
+                                                    onclick="document.getElementById('deactivate-{{ $account->id }}').submit()"
+                                                    class="bg-red-500 text-white px-2 py-0.5 rounded text-xs hover:bg-red-600">
+                                                    Deactivate
+                                                </button>
+                                                <form id="deactivate-{{ $account->id }}" method="POST"
+                                                    action="{{ route('admin.accounts.deactivate', $account) }}" class="hidden">
+                                                    @csrf
+                                                </form>
+                                            @else
+                                                <button type="button"
+                                                    onclick="document.getElementById('activate-account-{{ $account->id }}').submit()"
+                                                    class="bg-green-500 text-white px-2 py-0.5 rounded text-xs hover:bg-green-600">
+                                                    Activate
+                                                </button>
+                                                <form id="activate-account-{{ $account->id }}" method="POST"
+                                                    action="{{ route('admin.accounts.activate', $account) }}" class="hidden">
+                                                    @csrf
+                                                </form>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </td>
                                 <td class="px-4 py-3 font-semibold">
                                     ₱{{ number_format($user->accounts->sum('balance'), 2) }}
                                 </td>
