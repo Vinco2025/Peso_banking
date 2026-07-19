@@ -53,4 +53,18 @@ class AdminController extends Controller
         $user->save();
         return back()->with('success', $user->name . ' has been activated.');
     }
+
+    public function deactivateAccount(Account $account)
+    {
+        $account->status = 'inactive';
+        $account->save();
+        return back()->with('success', 'Account ' . $account->account_number . ' has been deactivated.');
+    }
+
+    public function activateAccount(Account $account)
+    {
+        $account->status = 'active';
+        $account->save();
+        return back()->with('success', 'Account ' . $account->account_number . ' has been activated.');
+    }
 }
