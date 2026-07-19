@@ -56,6 +56,10 @@
                                                     @csrf
                                                 </form>
                                             @endif
+                                            <a href="{{ route('admin.user.transactions', $user) }}"
+                                                class="mt-1 inline-block bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">
+                                                    View Transactions
+                                            </a>
                                         </div>
                                     @endforeach
                                 </td>
