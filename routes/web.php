@@ -48,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/transactions', [AdminController::class, 'transactions'])->name('admin.transactions');
     Route::post('/users/{user}/suspend', [AdminController::class, 'suspendUser'])->name('admin.users.suspend');
     Route::post('/users/{user}/activate', [AdminController::class, 'activateUser'])->name('admin.users.activate');
+    Route::post('/accounts/{account}/deactivate', [AdminController::class, 'deactivateAccount'])->name('admin.accounts.deactivate');
+    Route::post('/accounts/{account}/activate', [AdminController::class, 'activateAccount'])->name('admin.accounts.activate');
 });
 
 require __DIR__.'/auth.php';
