@@ -30,6 +30,10 @@ class TransactionController extends Controller
                         ->where('user_id', auth()->id())
                         ->firstOrFail();
 
+        if ($account->status === 'inactive') {
+            return back()->withErrors(['account_id' => 'This account is inactive.']);
+        }
+
         // DB::transaction makes sure BOTH the balance update
         // and transaction record succeed together, or both fail
         DB::transaction(function () use ($account, $request) {
@@ -66,6 +70,10 @@ class TransactionController extends Controller
         $account = Account::where('id', $request->account_id)
                         ->where('user_id', auth()->id())
                         ->firstOrFail();
+
+        if ($account->status === 'inactive') {
+            return back()->withErrors(['account_id' => 'This account is inactive.']);
+        }
 
         // Check if balance is enough
         if ($account->balance < $request->amount) {
@@ -104,6 +112,10 @@ class TransactionController extends Controller
         $fromAccount = Account::where('id', $request->from_account_id)
             ->where('user_id', auth()->id())
             ->firstOrFail();
+
+        if ($fromAccount->status === 'inactive') {
+            return back()->withErrors(['from_account_id' => 'This account is inactive.']);
+        }
 
         $toAccount = Account::where('account_number', $request->to_account_number)->first();
 
