@@ -191,4 +191,21 @@ class TransactionController extends Controller
 
         return $pdf->download('transaction-history.pdf');
     }
+
+    public function receipt(Transaction $transaction)
+    {
+        $user = auth()->user();
+        $accountIds = $user->accounts()->pluck('id');
+
+        $owns = $accountIds->contains($transaction->from_account_id) ||
+                $accountIds->contains($transaction->to_account_id);
+
+        if (!$owns) {
+            abort(403);
+        }
+
+        $transaction->load(['fromAccount.user', 'toAccount.user']);
+
+        return view('customer.transactions.receipt', compact('transaction'));
+    }
 }
