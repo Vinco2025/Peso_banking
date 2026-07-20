@@ -43,6 +43,9 @@ Route::middleware(['auth', 'role:customer', 'check.status'])->prefix('customer')
 
     // This routes to the exporting of transactions
     Route::get('/transactions/export-pdf', [TransactionController::class, 'exportPdf'])->name('transactions.export-pdf');
+
+    // This routes to the transactions receipt
+    Route::get('/transactions/{transaction}/receipt', [TransactionController::class, 'receipt'])->name('transaction.receipt');
 });
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
