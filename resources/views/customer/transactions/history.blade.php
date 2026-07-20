@@ -1,32 +1,54 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Transaction History
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                Transaction History
+            </h2>
+            <a href="{{ route('transactions.export-pdf') }}"
+                class="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600">
+                Export PDF
+            </a>
+        </div>
     </x-slot>
-
-    <a href="{{ route('transactions.export-pdf') }}"
-        class="bg-red-500 text-white px-4 py-2 rounded text-sm hover:bg-red-600">
-        Export PDF
-    </a>
-
-    <form method="GET" action="{{ route('transaction.history') }}" class="mb-6 flex gap-3 items-center">
-        <select name="type" class="border-gray-300 rounded-md shadow-sm text-sm">
-            <option value="">All Transactions</option>
-            <option value="deposit" {{ request('type') === 'deposit' ? 'selected' : '' }}>Deposit</option>
-            <option value="withdrawal" {{ request('type') === 'withdrawal' ? 'selected' : '' }}>Withdrawal</option>
-            <option value="transfer" {{ request('type') === 'transfer' ? 'selected' : '' }}>Transfer</option>
-        </select>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
-            Filter
-        </button>
-        @if(request('type'))
-            <a href="{{ route('transaction.history') }}" class="text-sm text-gray-500 hover:underline">Clear</a>
-        @endif
-    </form>
 
     <div class="py-12">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+
+            {{-- Filter Form --}}
+            <form method="GET" action="{{ route('transaction.history') }}" class="mb-6 bg-white shadow-sm rounded-lg p-4 flex flex-wrap gap-3 items-end">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">Type</label>
+                    <select name="type" class="border-gray-300 rounded-md shadow-sm text-sm">
+                        <option value="">All Types</option>
+                        <option value="deposit" {{ request('type') === 'deposit' ? 'selected' : '' }}>Deposit</option>
+                        <option value="withdrawal" {{ request('type') === 'withdrawal' ? 'selected' : '' }}>Withdrawal</option>
+                        <option value="transfer" {{ request('type') === 'transfer' ? 'selected' : '' }}>Transfer</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">From Date</label>
+                    <input type="date" name="date_from" value="{{ request('date_from') }}"
+                        class="border-gray-300 rounded-md shadow-sm text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-600 mb-1">To Date</label>
+                    <input type="date" name="date_to" value="{{ request('date_to') }}"
+                        class="border-gray-300 rounded-md shadow-sm text-sm">
+                </div>
+
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                    Filter
+                </button>
+
+                @if(request('type') || request('date_from') || request('date_to'))
+                    <a href="{{ route('transaction.history') }}" class="text-sm text-gray-500 hover:underline self-end mb-2">
+                        Clear
+                    </a>
+                @endif
+            </form>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
                 @if (session('success'))
@@ -34,7 +56,16 @@
                 @endif
 
                 @if ($transactions->isEmpty())
-                    <p class="text-gray-500">No transactions yet.</p>
+                    <div class="flex flex-col items-center justify-center py-16 text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v8m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <p class="text-lg font-semibold text-gray-500">No transactions found</p>
+                        <p class="text-sm mt-1">Try adjusting your filters or make your first transaction.</p>
+                        <a href="{{ route('deposit.form') }}" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">
+                            Make your first deposit
+                        </a>
+                    </div>
                 @else
                     <table class="w-full text-sm text-left">
                         <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
@@ -64,10 +95,11 @@
                                 </tr>
                             @endforeach
                         </tbody>
-                        <div class="mt-4">
-                            {{ $transactions->appends(request()->query())->links() }}
-                        </div>
                     </table>
+
+                    <div class="mt-4">
+                        {{ $transactions->appends(request()->query())->links() }}
+                    </div>
                 @endif
             </div>
         </div>
