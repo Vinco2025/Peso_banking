@@ -79,6 +79,13 @@
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($transactions as $tx)
+                            <th class="px-4 py-3">Receipt</th>
+                            <td class="px-4 py-3">
+                                <a href="{{ route('transaction.receipt', $tx) }}"
+                                    class="text-blue-600 hover:underline text-xs">
+                                    View
+                                </a>
+                            </td>
                                 <tr>
                                     <td class="px-4 py-3">{{ $tx->created_at->format('M d, Y h:i A') }}</td>
                                     <td class="px-4 py-3 capitalize">
