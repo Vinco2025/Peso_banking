@@ -149,15 +149,29 @@ class TransactionController extends Controller
 
     public function history(Request $request)
     {
-        $accounts = auth()->user()->accounts->pluck('id');
+        $user = auth()->user();
+        $accountIds = $user->accounts()->pluck('id');
 
-        $transactions = Transaction::where(function ($query) use ($accounts) {
-                $query->whereIn('from_account_id', $accounts)
-                    ->orwhereIn('to_account_id', $accounts);
-        })
-        ->when($request->type, fn($q) => $q->where('type', $request->type))
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+        $query = \App\Models\Transaction::where(function($q) use ($accountIds) {
+                $q->whereIn('from_account_id', $accountIds)
+                ->orWhereIn('to_account_id', $accountIds);
+            })
+            ->with(['fromAccount', 'toAccount'])
+            ->latest();
+        
+        if ($request->type) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->date_from) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->date_to) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        $transactions = $query->paginate(10);
 
         return view('customer.transactions.history', compact('transactions'));
     }
