@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($transactions as $tx)
+                        @forelse ($transactions as $tx)
                             <tr>
                                 <td class="px-4 py-3">{{ $tx->created_at->format('M d, Y h:i A') }}</td>
                                 <td class="px-4 py-3">
@@ -55,12 +55,27 @@
                                 </td>
                                 <td class="px-4 py-3 font-semibold">₱{{ number_format($tx->amount, 2) }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="5">
+                                    <div class="flex flex-col items-center justify-center py-16 text-gray-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v8m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                        </svg>
+                                        <p class="text-lg font-semibold text-gray-500">No transactions yet</p>
+                                        <p class="text-sm mt-1">Transactions will appear here once customers start transacting.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
+                </table>
+
+                @if ($transactions->hasPages())
                     <div class="mt-4">
                         {{ $transactions->appends(request()->query())->links() }}
                     </div>
-                </table>
+                @endif
 
             </div>
         </div>
