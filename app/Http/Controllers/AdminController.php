@@ -24,9 +24,24 @@ class AdminController extends Controller
         ));
     }
 
-    public function users()
+    public function users(Request $request)
     {
-        $users = User::where('role', 'customer')->with('accounts')->get();
+        $query = \App\Models\User::where('role', 'customer')
+            ->with('accounts');
+
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhereHas('accounts', function($q2) use ($search) {
+                        $q2->where('account_number', 'like', "%{$search}%");
+                    });
+            });
+        }
+
+        $users = $query->get();
+
         return view('admin.users', compact('users'));
     }
 
