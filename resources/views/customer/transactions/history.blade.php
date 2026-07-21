@@ -38,7 +38,7 @@
                         class="border-gray-300 rounded-md shadow-sm text-sm">
                 </div>
 
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
                     Filter
                 </button>
 
@@ -82,7 +82,7 @@
                             <th class="px-4 py-3">Receipt</th>
                             <td class="px-4 py-3">
                                 <a href="{{ route('transaction.receipt', $tx) }}"
-                                    class="text-blue-600 hover:underline text-xs">
+                                    class="text-green-600 hover:underline text-xs">
                                     View
                                 </a>
                             </td>
