@@ -16,7 +16,7 @@
             {{-- Create account button --}}
             <div class="mb-4">
                 <a href="{{ route('accounts.create') }}"
-                   class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                class="bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm transition hover:bg-green-800">
                     + Open New Account
                 </a>
             </div>
