@@ -49,7 +49,7 @@
 
                     {{-- This button opens the modal instead of submitting directly --}}
                     <button type="button" onclick="openModal()"
-                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                        class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700">
                         Transfer
                     </button>
                 </form>
