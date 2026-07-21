@@ -22,7 +22,7 @@
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        class="w-full bg-green-700 text-white py-2 rounded-lg font-semibold shadow-sm transition hover:bg-green-800">
                     Open Account
                 </button>
             </form>
