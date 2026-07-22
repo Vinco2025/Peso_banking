@@ -64,19 +64,55 @@
 
             {{-- Right Side --}}
             <div class="hidden sm:flex sm:items-center gap-3">
-                <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-green-700 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-                    <span class="text-green-100 text-sm font-medium">{{ Auth::user()->name }}</span>
-                </div>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                        class="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-4 py-1.5 rounded-lg text-sm font-medium transition">
-                        Log Out
+
+                {{-- Avatar dropdown --}}
+                <div class="relative" x-data="{ dropdownOpen: false }">
+                    <button @click="dropdownOpen = !dropdownOpen"
+                            class="flex items-center gap-2 hover:bg-green-800 px-3 py-1.5 rounded-lg transition">
+                        <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                        <span class="text-green-100 text-sm font-medium">{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
                     </button>
-                </form>
+
+                    {{-- Dropdown menu --}}
+                    <div x-show="dropdownOpen"
+                        @click.outside="dropdownOpen = false"
+                        x-transition
+                        class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-50">
+
+                        <div class="px-4 py-2 border-b border-gray-100">
+                            <p class="text-xs font-semibold text-gray-800 truncate">{{ Auth::user()->name }}</p>
+                            <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
+                        </div>
+
+                        <a href="{{ route('profile.edit') }}"
+                        class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            Edit Profile
+                        </a>
+
+                        <div class="border-t border-gray-100 mt-1 pt-1">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="flex items-center gap-2 w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    </svg>
+                                    Log Out
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
             {{-- Hamburger --}}
