@@ -15,7 +15,7 @@
                         <option value="withdrawal" {{ request('type') === 'withdrawal' ? 'selected' : '' }}>Withdrawal</option>
                         <option value="transfer" {{ request('type') === 'transfer' ? 'selected' : '' }}>Transfer</option>
                     </select>
-                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
                         Filter
                     </button>
                     @if(request('type'))
