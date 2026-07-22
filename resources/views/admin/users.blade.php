@@ -11,7 +11,7 @@
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Search by name, email, or account number..."
                     class="border-gray-300 rounded-md shadow-sm text-sm w-80">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm">
                     Search
                 </button>
                 @if(request('search'))
