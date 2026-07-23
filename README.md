@@ -1,59 +1,215 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏦 Peso Bank — Laravel Banking System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-featured web-based banking system built with **Laravel 12** and **Laravel Breeze**, featuring role-based access, account management, fund transfers, transaction history, and an admin panel.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Customer
+- Register and log in securely
+- Open savings or checking accounts
+- Deposit and withdraw funds
+- Transfer funds to other accounts (with confirmation modal)
+- View transaction history with type and date range filters
+- Download transaction history as a PDF
+- View individual transaction receipts
+- Edit profile and update password
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Admin
+- Dashboard with key stats (customers, accounts, transactions, total balance)
+- View and search all customers
+- Suspend or activate customer accounts
+- Activate or deactivate individual bank accounts
+- View all transactions with type filtering
+- View a specific customer's transaction history
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Layer | Technology |
+|---|---|
+| Framework | Laravel 12 |
+| Auth & UI | Laravel Breeze (Blade) |
+| Styling | Tailwind CSS |
+| Database | MySQL |
+| PDF Export | barryvdh/laravel-dompdf v3.1.2 |
+| Frontend | Alpine.js, Vite |
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Installation
 
-### Premium Partners
+### Prerequisites
+- PHP 8.2+
+- Composer
+- Node.js & npm
+- MySQL
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Steps
 
-## Contributing
+**1. Clone the repository**
+```bash
+git clone https://github.com/Vinco2025/Peso_banking.git
+cd banking-system
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**2. Install dependencies**
+```bash
+composer install
+npm install
+```
 
-## Code of Conduct
+**3. Set up environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**4. Configure your database in `.env`**
+```env
+DB_DATABASE=peso_bank
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
 
-## Security Vulnerabilities
+**5. Run migrations**
+```bash
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**6. Seed the admin account**
+```bash
+php artisan db:seed
+```
 
-## License
+**7. Start the development servers**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+In two separate terminals:
+```bash
+npm run dev
+```
+```bash
+php artisan serve
+```
+
+Then visit: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## 🔐 Default Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@bank.com | password |
+| Customer | Register via `/register` | — |
+
+---
+
+## 📁 Project Structure
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AccountController.php
+│   │   ├── TransactionController.php
+│   │   └── AdminController.php
+│   └── Middleware/
+│       ├── EnsureUserRole.php
+│       └── CheckUserStatus.php
+resources/
+└── views/
+    ├── customer/
+    │   ├── dashboard.blade.php
+    │   ├── deposit.blade.php
+    │   ├── withdraw.blade.php
+    │   ├── transfer.blade.php
+    │   ├── accounts/
+    │   │   ├── index.blade.php
+    │   │   └── create.blade.php
+    │   └── transactions/
+    │       ├── history.blade.php
+    │       ├── receipt.blade.php
+    │       └── pdf.blade.php
+    ├── admin/
+    │   ├── dashboard.blade.php
+    │   ├── users.blade.php
+    │   ├── transactions.blade.php
+    │   └── user_transactions.blade.php
+    └── layouts/
+        ├── app.blade.php
+        └── navigation.blade.php
+```
+
+---
+
+## 📸 Screenshots
+
+> _Add screenshots of your app here_
+
+| Page | Preview |
+|---|---|
+| Landing Page | _(screenshot)_ |
+| Customer Dashboard | _(screenshot)_ |
+| Transaction History | _(screenshot)_ |
+| Admin Dashboard | _(screenshot)_ |
+
+---
+
+## 🗄️ Database Schema
+
+### `users`
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key |
+| name | string | |
+| email | string | Unique |
+| password | string | Hashed |
+| role | string | `admin` or `customer` |
+| status | string | `active` or `suspended` |
+
+### `accounts`
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key |
+| user_id | bigint | Foreign key |
+| account_number | string | e.g. `ACC-XXXXXXXX` |
+| type | string | `savings` or `checking` |
+| balance | decimal | |
+| status | string | `active` or `inactive` |
+
+### `transactions`
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint | Primary key |
+| from_account_id | bigint | Nullable foreign key |
+| to_account_id | bigint | Nullable foreign key |
+| type | string | `deposit`, `withdrawal`, `transfer` |
+| amount | decimal | |
+| description | string | Nullable |
+
+---
+
+## 🚀 Key Learnings
+
+This project was built as a hands-on learning exercise in Laravel. Key concepts practiced:
+
+- Role-based middleware (`EnsureUserRole`, `CheckUserStatus`)
+- Database transactions with `DB::transaction()` for safe fund transfers
+- Eloquent relationships (`hasMany`, `belongsTo`)
+- Query scoping and filtering with `whereIn`, `orWhere`, date ranges
+- PDF generation with `barryvdh/laravel-dompdf`
+- Git branching workflow (`feature/` branches, merging to `main`)
+- Alpine.js for interactive modals and dropdowns
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+---
+
+<p align="center">Built with ❤️ using Laravel 12 & Tailwind CSS</p>
