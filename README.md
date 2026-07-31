@@ -1,10 +1,10 @@
-# 🏦 Peso Bank — Laravel Banking System
+# Peso Bank — Laravel Banking System
 
 A full-featured web-based banking system built with **Laravel 12** and **Laravel Breeze**, featuring role-based access, account management, fund transfers, transaction history, and an admin panel.
 
 ---
 
-## ✨ Features
+## Features
 
 ### Customer
 - Register and log in securely
@@ -26,7 +26,7 @@ A full-featured web-based banking system built with **Laravel 12** and **Laravel
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -39,7 +39,7 @@ A full-featured web-based banking system built with **Laravel 12** and **Laravel
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 ### Prerequisites
 - PHP 8.2+
@@ -98,7 +98,7 @@ Then visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 🔐 Default Credentials
+## Default Credentials
 
 | Role | Email | Password |
 |---|---|---|
@@ -107,7 +107,7 @@ Then visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 app/
@@ -145,7 +145,7 @@ resources/
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 | Page | Preview |
 |---|---|
@@ -160,7 +160,7 @@ resources/
 
 ---
 
-## 🗄️ Database Schema
+## Database Schema
 
 ### `users`
 | Column | Type | Notes |
@@ -194,7 +194,7 @@ resources/
 
 ---
 
-## 🚀 Key Learnings
+## Key Learnings
 
 This project was built as a hands-on learning exercise in Laravel. Key concepts practiced:
 
@@ -208,10 +208,10 @@ This project was built as a hands-on learning exercise in Laravel. Key concepts 
 
 ---
 
-## 📄 License
+## License
 
 This project is open-source and available under the [MIT License](LICENSE).
 
 ---
 
-<p align="center">Built with ❤️ using Laravel 12 & Tailwind CSS</p>
+<p align="center">Built with using Laravel 12 & Tailwind CSS</p>
