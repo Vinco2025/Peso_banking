@@ -146,18 +146,21 @@ resources/
 ---
 
 ## Screenshots
+Landing Page
 
-| Page | Preview |
-|---|---|
-| Landing Page | <img width="1352" height="561" alt="image" src="https://github.com/user-attachments/assets/4600631b-f797-4264-a847-df7566eb1435"/>|
-|
-| Customer Dashboard | <img width="1353" height="594" alt="image" src="https://github.com/user-attachments/assets/d018021a-2182-4b29-a310-ec21190f9cca" />|
-|
-| Transaction History | <img width="1350" height="600" alt="image" src="https://github.com/user-attachments/assets/a19b0d29-971e-435f-b2a2-9452612c239a" />|
-|
-| Admin Dashboard | <img width="1366" height="588" alt="image" src="https://github.com/user-attachments/assets/565c0d66-8ddb-490c-8fc1-556ab01fd4cd" />|
-|
+<p align="center"> <img src="https://github.com/user-attachments/assets/4600631b-f797-4264-a847-df7566eb1435" width="800"/> </p>
 
+Customer Dashboard
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/d018021a-2182-4b29-a310-ec21190f9cca" width="800"/> </p>
+
+Transaction History
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/a19b0d29-971e-435f-b2a2-9452612c239a" width="800"/> </p>
+
+Admin Dashboard
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/565c0d66-8ddb-490c-8fc1-556ab01fd4cd" width="800"/> </p>
 ---
 
 ## Database Schema
