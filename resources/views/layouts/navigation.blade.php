@@ -5,7 +5,7 @@
             <div class="flex items-center">
                 {{-- Logo --}}
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-2 text-white font-bold text-lg tracking-tight shrink-0">
-                    <img src="{{ asset('images/logo.svg') }}" alt="Peso Bank Logo" class="w-8 h-8 object-contain">
+                    <img src="{{ asset('images/logo.png') }}" alt="Peso Bank Logo" class="w-10 h-10 object-contain brightness-0 invert">
                     Peso Bank
                 </a>
 
