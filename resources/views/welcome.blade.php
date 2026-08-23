@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Peso Bank — Your Trusted Banking Partner</title>
-    <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,7 +16,7 @@
     <nav class="bg-green-900 sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 text-white font-bold text-xl tracking-tight">
-                <img src="{{ asset('images/logo.svg') }}" alt="Peso Bank Logo" class="w-8 h-8 object-contain">
+                <img src="{{ asset('images/logo.png') }}" alt="Peso Bank Logo" class="w-10 h-10 object-contain brightness-0 invert">
                 Peso Bank
             </a>
             <div class="flex items-center gap-3">
@@ -41,8 +42,9 @@
     </nav>
 
     {{-- HERO --}}
-    <section class="bg-gradient-to-br from-green-900 via-green-800 to-green-700 text-white py-28 px-6 text-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04),transparent_70%)] pointer-events-none"></div>
+    <section class="text-white py-48 px-6 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-cover bg-top bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1624685863152-4fa71a70d0c1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+        <div class="absolute inset-0 bg-green-900/70"></div>
         <div class="relative max-w-3xl mx-auto">
             <h1 class="text-4xl sm:text-5xl font-bold leading-tight mb-5 tracking-tight">
                 Banking Made <span class="text-green-300">Simple,</span><br>Secure & Smart
