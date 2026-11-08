@@ -148,7 +148,8 @@ resources/
 ## Screenshots
 Landing Page
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/4600631b-f797-4264-a847-df7566eb1435" width="800"/> </p>
+<p align="center"> <img width="1903" height="882" alt="peso_bank" src="https://github.com/user-attachments/assets/da7ef2de-841b-4026-9f11-8f9a59e446f7" />
+</p>
 
 Customer Dashboard
 
